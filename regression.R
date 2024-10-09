@@ -44,6 +44,9 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
        y = "Grade") +
   theme(plot.title = element_text(hjust = 0.5))
 
+
+
+
 # Lecture notes
 # Regression is a way to model the relationship between two variable (independent and dependent).
 # The model allow us to predict the value of one variable (independent) based 
@@ -84,8 +87,12 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 # difference from the observed value to the predicted value
 # Find the line that yields the smallest sum of squared residuals
 
-# R squared: The proportion of the variance in the dependent variable
-
+# R squared: measures how much of the variability in the dependent variable
+#            can be explained by the model. 
+#            The closer to 1, the more variability the model explains the better
+#            fits 
+# e.g. r^2 =0.8365,- the model explains 83.65% of the variability in the dependent variable
+# only use adjusted R squared rather than multiple R squared
 #standard error: The average distance between the observed value and the predicted value
 #                The average distance between the observed value and the line
 #                measure the potential variation of coefficients
@@ -113,5 +120,6 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 # If Pr is less than 0.05, then there is less than less than a 5% chance that the coefficient
 # crosses zero. - significant association.
 
-
-
+# F-statistic: Whether the model predicts the model predicts significant better than base model(average)
+# if p-value associated with F-statistic is less than 0.05, the model predicts the significantly 
+# better than mean.
