@@ -31,3 +31,14 @@ ggplot(pop, aes(x = Year, y = Libreville)) +
        x = "Year",
        y = "Population") +
   theme(plot.title = element_text(hjust = 0.5))
+
+
+# Lecture Note #####
+# variable in linear trend:
+# 1. use more recent data
+# 2. use historical data
+
+########Dealing with non-linearity########
+# Curve model
+# y= a + b1x + b2x^2
+# prediction = a + b1*year^2+b2*year
