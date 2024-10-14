@@ -19,3 +19,9 @@ abline(reg1, col = "red")
 # Good to close to zero, evenly distributed around the zero line
 plot(reg1)
 hist(resid(reg1))
+
+#2. Normally distribute residuals -> QQ plot (Quantile- Quantile plot)
+# better: points lied on the line
+# Bad QQ plots indicate our model systematically over or under predicts
+hist(dat_for_model$pop_plus10) 
+plot(density(dat_for_model$pop_plus10, na.rm = TRUE)) 
