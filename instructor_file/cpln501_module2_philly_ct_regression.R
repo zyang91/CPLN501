@@ -3,7 +3,8 @@
 #FALL 2024
 
 rm(list=ls())
-load("cpln501_module2_census_tract.rda")
+setwd("")
+load("data/cpln501_module2_census_tract.rda")
 #it is a good habit to give your variables descriptive names
 #pop = 2000 population; pop_plus10 = 2010 population
 #indep. vars in dat_for_model are for 2000
