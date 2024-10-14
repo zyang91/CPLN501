@@ -42,3 +42,11 @@ ggplot(pop, aes(x = Year, y = Libreville)) +
 # Curve model
 # y= a + b1x + b2x^2
 # prediction = a + b1*year^2+b2*year
+# Variation for curve model
+# add more curves by adding higher power terms
+
+#Lag model ######
+# y= b0 + b1* pop 5 years + b2*year
+#COEF for pop 5 years ago, on average, each additional unit in the 
+#population 5years prior to the predicted year corresponds to 0.67 units 
+#in the predicted year.
