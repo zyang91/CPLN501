@@ -1,0 +1,165 @@
+---
+title: "extra_credit"
+author: "Zhanchao Yang"
+date: "2024-10-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+setwd("/Users/apple/Desktop/CPLN501/data")
+# Load the dataset provided by your instructor
+load("cpln501_module2_census_tract.rda")
+
+# Inspect the data
+head(dat_for_model)
+summary(dat_for_model)
+
+# Plot 2000 vs 2010 population to visualize the relationship
+plot(dat_for_model$pop, dat_for_model$pop_plus10, 
+     main = "2000 vs 2010 Population", 
+     xlab = "2000 Population", ylab = "2010 Population", 
+     pch = 16, col = "blue")
+
+```
+
+## Model 1:linear regression
+```{r linear_regression, echo=TRUE}
+# Build the linear regression model
+reg1 <- lm(pop_plus10 ~ pop, data = dat_for_model)
+summary(reg1)
+
+# Plot the 2000 vs 2010 population and add the regression line
+plot(dat_for_model$pop, dat_for_model$pop_plus10, 
+     main = "2000 vs 2010 Population", 
+     xlab = "2000 Population", ylab = "2010 Population", 
+     pch = 16, col = "blue")
+
+# Add the regression line
+abline(reg1, col = "red", lwd = 2)
+
+# Check residuals to evaluate model performance
+plot(reg1)
+hist(resid(reg1), main = "Residuals of Linear Model", xlab = "Residuals")
+
+
+```
+##Model 2: Quadratic Regression
+## Model 2: Quadratic Regression
+```{r quadratic_regression, echo=TRUE}
+# Remove rows with NA values to ensure equal length
+clean_data <- na.omit(dat_for_model[, c("pop", "pop_plus10")])
+
+# Add a quadratic term to improve the model
+reg2 <- lm(pop_plus10 ~ pop + I(pop^2), data = clean_data)
+summary(reg2)
+
+# Plot: Comparing linear and quadratic models with actual data
+plot(clean_data$pop, clean_data$pop_plus10, 
+     main = "Comparing Linear and Quadratic Models", 
+     xlab = "2000 Population", ylab = "2010 Population", 
+     pch = 16, col = "black")
+
+# Add predictions from both models on the same plot
+points(clean_data$pop, predict(reg1, newdata = clean_data), col = "red", pch = 16)  # Linear model
+points(clean_data$pop, predict(reg2, newdata = clean_data), col = "blue", pch = 16)  # Quadratic model
+
+# Add a legend to distinguish models
+legend("topleft", legend = c("Linear Model", "Quadratic Model"), 
+       col = c("red", "blue"), pch = 16)
+
+```
+
+##Model 3: Additional Predictors (Education and Income)
+```{r new_chunk, echo=TRUE}
+# Model with population over 25 years old
+reg3 <- lm(pop_plus10 ~ pop_25_plus, data = dat_for_model)
+summary(reg3)
+
+# Model with both population over 25 and 2000 population
+reg4 <- lm(pop_plus10 ~ pop + pop_25_plus, data = dat_for_model)
+summary(reg4)
+
+# Model with quadratic term and median household income
+reg5 <- lm(pop_plus10 ~ pop + I(pop^2) + median_hh_income, data = dat_for_model)
+summary(reg5)
+
+# Plot residuals for the final model
+plot(reg5)
+```
+
+
+##Model 4: Including Race Variables
+```{r new_chunk, echo=TRUE}
+# Model with population and Black population
+reg6 <- lm(pop_plus10 ~ pop + pop_black, data = dat_for_model)
+summary(reg6)
+
+# Model with population, Black population, and Asian population
+reg7 <- lm(pop_plus10 ~ pop + pop_black + pop_asian, data = dat_for_model)
+summary(reg7)
+```
+
+##Step 3: Model Evaluation and Selection
+
+```{r new_chunk, echo=TRUE}
+# Compare models using the stargazer package
+library(stargazer)
+
+stargazer(reg4, reg5, type = "text", 
+          star.cutoffs = c(0.05, 0.01, 0.001))
+
+# Check the actual total population in 2010
+total_2010_pop <- sum(dat_for_model$pop_plus10, na.rm = TRUE)
+print(paste("Total 2010 Population:", total_2010_pop))
+
+# Check the predicted 2010 population from the best model
+predicted_2010_pop <- sum(predict(reg5, newdata = dat_for_model), na.rm = TRUE)
+print(paste("Predicted 2010 Population:", predicted_2010_pop))
+```
+
+##Step 4: Predict Population for 2020
+
+```{r new_chunk, echo=TRUE}
+# Use the final model (reg5) to predict 2020 population
+dat_for_pred$pop2020_est <- predict(reg5, newdata = dat_for_pred)
+
+# Calculate the total predicted population for 2020
+total_2020_pop <- sum(dat_for_pred$pop2020_est, na.rm = TRUE)
+print(paste("Total Predicted 2020 Population:", total_2020_pop))
+```
+
+
+## Step 5: Visualize and Analyze Residuals
+```{r visualize_residuals, echo=TRUE}
+# Remove any rows with NA values to ensure equal lengths for prediction and actual values
+clean_data <- na.omit(dat_for_model[, c("pop", "pop_plus10", "median_hh_income")])
+
+# Rebuild the final model using the cleaned data
+reg5 <- lm(pop_plus10 ~ pop + I(pop^2) + median_hh_income, data = clean_data)
+
+# Plot residuals for the final model
+plot(reg5)
+hist(resid(reg5), main = "Residuals of Final Model", xlab = "Residuals")
+
+# Plot predicted vs actual population to assess model fit
+actual_values <- clean_data$pop_plus10
+predicted_values <- predict(reg5, newdata = clean_data)
+
+# Ensure actual and predicted values have the same length
+print(paste("Actual values length:", length(actual_values)))
+print(paste("Predicted values length:", length(predicted_values)))
+
+# Create the plot comparing actual vs predicted values
+plot(actual_values, predicted_values, 
+     main = "Predicted vs Actual 2010 Population", 
+     xlab = "Actual Population", ylab = "Predicted Population", 
+     pch = 16, col = "purple")
+
+# Add a 45-degree line for reference
+abline(0, 1, col = "red", lwd = 2)
+```
+
+
