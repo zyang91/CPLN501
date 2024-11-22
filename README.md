@@ -8,6 +8,8 @@ Fall 2024
 
 Instructor: Dr. Summer (Xiaoxia) Dong
 
+Note: All rights reserved by the instructor and creator
+
 ## Course Overview
 This course is designed to acquaint first-year MCP students with the data analysis and forecasting skills 
 they will need to develop neighborhood and community plans, including: 
