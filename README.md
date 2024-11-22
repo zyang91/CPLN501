@@ -1,13 +1,5 @@
 # CPLN 5010 Quantitative Planning Analysis Methods
 
-Department of City and Regional Planning 
-
-University of Pennsylvania
-
-Fall 2024
-
-Instructor: Dr. Summer (Xiaoxia) Dong
-
 Note: All rights reserved by the instructor and creator
 
 ## Course Overview
