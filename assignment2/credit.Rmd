@@ -161,5 +161,3 @@ plot(actual_values, predicted_values,
 # Add a 45-degree line for reference
 abline(0, 1, col = "red", lwd = 2)
 ```
-
-

@@ -122,4 +122,3 @@ dat2010 %>% mutate(perc.white = pop_white_nonhispanic/pop,
 
 ```{r}
 ```
-

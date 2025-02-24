@@ -100,4 +100,3 @@ install.packages("stargazer")
 library(stargazer)
 stargazer(reg4, reg5, type = "text",
           star.cutoffs = c(0.05, 0.01, 0.001))
-

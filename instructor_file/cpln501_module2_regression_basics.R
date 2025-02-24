@@ -50,4 +50,3 @@ summary(mod.3)
 
 #compare R squared with mod.1
 summary(mod.1)
-
