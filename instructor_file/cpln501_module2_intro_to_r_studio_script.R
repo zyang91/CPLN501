@@ -366,4 +366,3 @@ dat2010 %>% mutate(perc.white = pop_white_nonhispanic/pop,
   geom_boxplot(alpha = 0.7) + 
   labs(x="Race", y="Median HH Income") + 
   scale_fill_manual(values=c("#336699", "#666666")) # manually coloring plots.
-
