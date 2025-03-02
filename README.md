@@ -26,7 +26,7 @@ questions.
 
 ## Assignment and Overview
 
-The course will involve three assignments and one final project as follows: 
+The course will involve three assignments and one final project as follows
 1. Producing a portrait of a Philadelphia neighborhood using recent Census data (individual 
 assignment; 25% of course grade) 
 2. Projecting population and households for Philadelphia County (2-person group assignment; 25% 
