@@ -7,7 +7,7 @@ library(tidyverse)
 #enter Philly's population between 1950 and 2010
 #into the commands below
 year <- c(1950, 1960, 1970, 1980, 1990, 2000, 2010)
-population <- c(2071605,2002512,1948609,1688210,1585577,1517550,1526006)  
+population <- c(2071605,2002512,1948609,1688210,1585577,1517550,1526006)
 dat <- cbind.data.frame(year, population)
 
 #the assignment asks you to estimate three regression models
@@ -81,8 +81,8 @@ ggplot(dat, aes(x = year, y = population)) +
        x = "Year",
        y = "Population")
 
-  
-  
+
+
 ggplot(dat, aes(x = year, y = population)) +
   geom_point() +  # Original data points
   geom_smooth(method = "lm", se = FALSE, color="blue") +

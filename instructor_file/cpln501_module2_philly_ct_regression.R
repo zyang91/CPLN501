@@ -15,7 +15,7 @@ summary(dat_for_model)
 
 #BUILD MODEL####
 #Let's start with a simple regression predicting 2010 census tract population.
-#Based on what we discussed before, what would likely be a robust predictor? 
+#Based on what we discussed before, what would likely be a robust predictor?
 plot(dat_for_model$pop, dat_for_model$pop_plus10)
 
 reg1 <- lm(pop_plus10 ~ pop, dat_for_model)
@@ -40,10 +40,10 @@ plot(reg2)
 
 #can we tell from plot which prediction is better?
 plot(dat_for_model$pop, dat_for_model$pop_plus10)
-points(dat_for_model$pop[is.na(dat_for_model$pop_plus10) == FALSE & is.na(dat_for_model$pop) == FALSE ], 
+points(dat_for_model$pop[is.na(dat_for_model$pop_plus10) == FALSE & is.na(dat_for_model$pop) == FALSE ],
        predict(reg2), col = "blue", pch = 16)
 
-points(dat_for_model$pop[is.na(dat_for_model$pop_plus10) == FALSE & is.na(dat_for_model$pop) == FALSE ], 
+points(dat_for_model$pop[is.na(dat_for_model$pop_plus10) == FALSE & is.na(dat_for_model$pop) == FALSE ],
        predict(reg1), col = "red", pch = 16)
 
 #try other variables
@@ -90,7 +90,7 @@ sum(predict(reg5, newdata = dat_for_model), na.rm=TRUE) #predicted 2010 populati
 
 #Now, how do we make predictions for 2020?
 #Sum population prediction
-sum(predict(reg5, newdata= dat_for_pred), na.rm=TRUE) 
+sum(predict(reg5, newdata= dat_for_pred), na.rm=TRUE)
 
 #creating a new column of predicted 2020 population for each tract
 dat_for_pred$pop2020_est <- predict(reg5, newdata= dat_for_pred)

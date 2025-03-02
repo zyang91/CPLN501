@@ -8,7 +8,7 @@ rm(list=ls())
 #enter Philly's population between 1950 and 2010
 #into the commands below
 year <- c()
-population <- c()  
+population <- c()
 dat <- cbind.data.frame(,)
 
 #the assignment asks you to estimate three regression models
@@ -42,7 +42,7 @@ abline(mod.1)
 mod.2 <- lm( ~ , data = )
 summary(mod.2)
 
-#will this model likely do a good job at predicting 2020 population? 
+#will this model likely do a good job at predicting 2020 population?
 #TASK: plot the line
 plot(, ,
      main = "", #give plot a title
@@ -53,7 +53,7 @@ plot(, ,
 points()
 
 #TASK: plot smooth line through points
-lines() 
+lines()
 
 #TASK: add another column in futurepop and store predicted population in the column
 
@@ -64,7 +64,7 @@ library(tidyverse)
 dat <- dat %>% mutate(pop_lag = lag(population, 1))
 
 #TASK: build the model with year and lag
-mod.3 <- 
+mod.3 <-
 summary()
 
 #TASK: plot the points

@@ -14,7 +14,7 @@ pop <- read.csv("cpln501_module2_central_africa_pop.csv")
 #scatterplot
 plot(pop$Year, pop$Libreville,
      main = "Population Trend between 1950 and 2010",
-     xlab = "Year", ylab = "Population", 
+     xlab = "Year", ylab = "Population",
      col = "red", pch = 16)
 
 #Model 1####
@@ -32,7 +32,7 @@ abline(lbv)
 #equation for line
 #get estimated pop for year 2000
 #estimation = -21847.91 + 11.17 * 2000
-#using actual rather than rounded value of coefficients: more precise 
+#using actual rather than rounded value of coefficients: more precise
 #extract actual number using subscript
 lbv$coefficients[1] #intercept
 lbv$coefficients[2] #coef for year
@@ -40,10 +40,10 @@ lbv$coefficients[1] + lbv$coefficients[2]*2000
 
 #use predict function to get estimated pop for all years in data
 predict(lbv)
-points(pop$Year, predict(lbv), 
+points(pop$Year, predict(lbv),
        col = "black", pch = 16)
 
-#we can also use the predict function to project out 
+#we can also use the predict function to project out
 #predict function allows us to feed new data into the command
 futurepop <- data.frame(seq(from = 2040, to = 2100, by = 10)) #data frame from 2040 to 2100 in 10 yr increment
 colnames(futurepop) <- "Year" #make sure the variable in the new dataset has same name as indep. var. in model
@@ -100,7 +100,7 @@ plot(pop$Year, pop$Libreville)
 abline(lbv_1970, col = "red")
 abline(lbv)
 abline(lbv_back, col = "blue")
-legend(1950, 600, 
+legend(1950, 600,
        legend=c("all data", "<1995", ">=1970"),
        col=c("black", "blue", "red"), lty = 1)
 
@@ -111,10 +111,10 @@ plot(pop$Year, pop$Libreville)
 lbv2 <- lm(Libreville ~ Year + I(Year^2), data = pop)
 #what does the I()
 #https://stackoverflow.com/questions/24192428/what-does-the-capital-letter-i-in-r-linear-regression-formula-mean
-options(scipen=999) 
+options(scipen=999)
 summary(lbv2)
 
-points(pop$Year, predict(lbv2), 
+points(pop$Year, predict(lbv2),
        col = "red", pch = 16)
 lines(pop$Year, predict(lbv2), col = "red") #smooth line through points
 
@@ -132,7 +132,7 @@ predict(lbv2, newdata = futurepop)
 #associating population in previous year with current year (1950 with 1955)
 #use population of past year as predictor for population today
 library(tidyverse)
-pop <- pop %>% 
+pop <- pop %>%
   mutate(Libreville_pop_5_years_ago = lag(Libreville, 1)) %>% #shifting whole column down one row (i.e., creating lag)
   select(Year, Libreville, Libreville_pop_5_years_ago)
 
@@ -140,14 +140,14 @@ lbv3 <- lm(Libreville ~ Libreville_pop_5_years_ago + Year, data = pop)
 summary(lbv3)
 
 plot(pop$Year, pop$Libreville)
-points(pop$Year[pop$Year >= 1955], predict(lbv3), 
+points(pop$Year[pop$Year >= 1955], predict(lbv3),
        col = "red", pch = 16)
 lines(pop$Year[pop$Year >= 1955], predict(lbv3), col = "red")
 
 #be careful about predicting. do not plug in year directly.
 #how to predict 2020 population?
 #pop2020 = b0 + b1*pop2015 + b2*year2020
-#need to predict 2015 pop first 
+#need to predict 2015 pop first
 #pop2015 = b0 + b1*pop2010 + b2*year2015
 lbv3$coefficients[1] + lbv3$coefficients[2]*631 + lbv3$coefficients[3]*2015
 #predict function won't help

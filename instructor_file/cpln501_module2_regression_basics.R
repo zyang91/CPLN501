@@ -13,7 +13,7 @@ View(dat)
 #Replicating plot I drew in class
 plot(dat$hours, dat$grades, ylim = c(50, 100))
 
-#syntax for regression models: 
+#syntax for regression models:
 #lm(dependent variable ~ independent variable 1 + independent variable 2 +..., data = )
 #storing the model in an object called mod.1
 mod.1 <- lm(grades ~ hours, data = dat)

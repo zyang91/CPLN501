@@ -49,7 +49,7 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 
 # Lecture notes
 # Regression is a way to model the relationship between two variable (independent and dependent).
-# The model allow us to predict the value of one variable (independent) based 
+# The model allow us to predict the value of one variable (independent) based
 # on the value of another variable (dependent).
 
 # Simple regression
@@ -64,18 +64,18 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 #   - linear or non-linear relationship (Linerity)
 # Make predictions
 
-# Slope: How much the dependent variable changes 
+# Slope: How much the dependent variable changes
 #        when the independent variable changes by one unit
 #        What the line looks like
 
-# Intercept: The value of the dependent variable 
+# Intercept: The value of the dependent variable
 #            when the independent variable is zero
 #            Where the line meets x-axis - Where the line is
 
 # Residuals: The difference between the observed value and the predicted value
 #            The vertical distance between the observed value and the line
 
-# Ordinary least squares (OLS): 
+# Ordinary least squares (OLS):
 # The method used to find the line that minimizes the sum of squared residuals
 # Y= ax+b
 # multiple regression
@@ -83,14 +83,14 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 # a1, a2, a3 are the coefficients
 # x1, x2, x3 are the independent variables
 # Y= b0 + b1x1 + b2x2 + b3x3+ residuals (e)
-# Find the line (model) that results in the smallest 
+# Find the line (model) that results in the smallest
 # difference from the observed value to the predicted value
 # Find the line that yields the smallest sum of squared residuals
 
 # R squared: measures how much of the variability in the dependent variable
-#            can be explained by the model. 
+#            can be explained by the model.
 #            The closer to 1, the more variability the model explains the better
-#            fits 
+#            fits
 # e.g. r^2 =0.8365,- the model explains 83.65% of the variability in the dependent variable
 # only use adjusted R squared rather than multiple R squared
 #standard error: The average distance between the observed value and the predicted value
@@ -109,7 +109,7 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 # t= 1.96, 95% confidence level
 # t= 2.58, 99% confidence level
 # t= 1.67, 90% confidence level
-# If absolute value of t = 1.96, we are 95% confident that the range of our coefficient 
+# If absolute value of t = 1.96, we are 95% confident that the range of our coefficient
 # that not include 0
 # If absolute value of t >1.96, we are at least 95% confident that the range of our coefficient
 # that not include 0. It suggests that the association between the independent and dependent
@@ -121,5 +121,5 @@ ggplot(df, aes(x = hr_study, y = new_grade)) +
 # crosses zero. - significant association.
 
 # F-statistic: Whether the model predicts the model predicts significant better than base model(average)
-# if p-value associated with F-statistic is less than 0.05, the model predicts the significantly 
+# if p-value associated with F-statistic is less than 0.05, the model predicts the significantly
 # better than mean.
