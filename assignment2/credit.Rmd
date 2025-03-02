@@ -18,9 +18,9 @@ head(dat_for_model)
 summary(dat_for_model)
 
 # Plot 2000 vs 2010 population to visualize the relationship
-plot(dat_for_model$pop, dat_for_model$pop_plus10, 
-     main = "2000 vs 2010 Population", 
-     xlab = "2000 Population", ylab = "2010 Population", 
+plot(dat_for_model$pop, dat_for_model$pop_plus10,
+     main = "2000 vs 2010 Population",
+     xlab = "2000 Population", ylab = "2010 Population",
      pch = 16, col = "blue")
 
 ```
@@ -32,9 +32,9 @@ reg1 <- lm(pop_plus10 ~ pop, data = dat_for_model)
 summary(reg1)
 
 # Plot the 2000 vs 2010 population and add the regression line
-plot(dat_for_model$pop, dat_for_model$pop_plus10, 
-     main = "2000 vs 2010 Population", 
-     xlab = "2000 Population", ylab = "2010 Population", 
+plot(dat_for_model$pop, dat_for_model$pop_plus10,
+     main = "2000 vs 2010 Population",
+     xlab = "2000 Population", ylab = "2010 Population",
      pch = 16, col = "blue")
 
 # Add the regression line
@@ -57,9 +57,9 @@ reg2 <- lm(pop_plus10 ~ pop + I(pop^2), data = clean_data)
 summary(reg2)
 
 # Plot: Comparing linear and quadratic models with actual data
-plot(clean_data$pop, clean_data$pop_plus10, 
-     main = "Comparing Linear and Quadratic Models", 
-     xlab = "2000 Population", ylab = "2010 Population", 
+plot(clean_data$pop, clean_data$pop_plus10,
+     main = "Comparing Linear and Quadratic Models",
+     xlab = "2000 Population", ylab = "2010 Population",
      pch = 16, col = "black")
 
 # Add predictions from both models on the same plot
@@ -67,7 +67,7 @@ points(clean_data$pop, predict(reg1, newdata = clean_data), col = "red", pch = 1
 points(clean_data$pop, predict(reg2, newdata = clean_data), col = "blue", pch = 16)  # Quadratic model
 
 # Add a legend to distinguish models
-legend("topleft", legend = c("Linear Model", "Quadratic Model"), 
+legend("topleft", legend = c("Linear Model", "Quadratic Model"),
        col = c("red", "blue"), pch = 16)
 
 ```
@@ -108,7 +108,7 @@ summary(reg7)
 # Compare models using the stargazer package
 library(stargazer)
 
-stargazer(reg4, reg5, type = "text", 
+stargazer(reg4, reg5, type = "text",
           star.cutoffs = c(0.05, 0.01, 0.001))
 
 # Check the actual total population in 2010
@@ -153,9 +153,9 @@ print(paste("Actual values length:", length(actual_values)))
 print(paste("Predicted values length:", length(predicted_values)))
 
 # Create the plot comparing actual vs predicted values
-plot(actual_values, predicted_values, 
-     main = "Predicted vs Actual 2010 Population", 
-     xlab = "Actual Population", ylab = "Predicted Population", 
+plot(actual_values, predicted_values,
+     main = "Predicted vs Actual 2010 Population",
+     xlab = "Actual Population", ylab = "Predicted Population",
      pch = 16, col = "purple")
 
 # Add a 45-degree line for reference

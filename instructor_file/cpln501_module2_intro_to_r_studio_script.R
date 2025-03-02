@@ -4,7 +4,7 @@
 #FALL 2024
 
 # Download software####
-# R 
+# R
 # http://cran.r-project.org
 # R Studio
 # https://rstudio.com/products/rstudio/download/#download
@@ -26,14 +26,14 @@ rm(list=ls()) # clear leftover from last session
 help(rm)
 #or Google
 # Ctrl+Enter is a faster way to run your code. Command+Enter on Mac
-# If you would like to select a block of code 
+# If you would like to select a block of code
 # and run them at once,
 # hold down Shift and use your arrow keys to select.
 
 # CODING
 # R is an object based language- create/manipulate objects
 # Object/Variable <- Function/Value
-# <- means = 
+# <- means =
 
 # Creating new objects
 numberA <- 3  # appear in Environment pane
@@ -55,20 +55,20 @@ upenn
 # Naming convention
 U.P. <- "Urban Planning" # full stops are fine
 Urban_Planning <- "Urban Planning" # Underscores are fine
-number1 <- "Number 1" # Numbers are fine 
+number1 <- "Number 1" # Numbers are fine
 1number <- "number 1" # Not okay! Can't start with numbers, which means it cannot be all numeric like 123
 # !, -, *, & space are not okay!
 # Unexpected symbol
 
 # Creating a simple data frame (table) of Ravens roster
 # https://www.baltimoreravens.com/team/players-roster/
-# to open link, shift + click 
+# to open link, shift + click
 # create each column and combine them
 # names, number, height, weight, college
 
-name <- c("Lamar Jackson", "Tyler Huntley", # wrap texts in quotes 
-          "Jaylon Moore", "Brandon Williams", 
-          "Justin Tucker") 
+name <- c("Lamar Jackson", "Tyler Huntley", # wrap texts in quotes
+          "Jaylon Moore", "Brandon Williams",
+          "Justin Tucker")
 # What does c() do?
 # Combining several items into one object
 
@@ -93,14 +93,14 @@ colnames(raven.1) <- c("Player", "Jersey", "Height", "Weight", "College")
 
 # Add a column called posn
 posn <- c("QB", "QB", "WR", "DT", "K")
-raven.2 <- cbind(raven.1, posn) 
+raven.2 <- cbind(raven.1, posn)
 raven.2
 
 # Save data frame(s)
 # Remember to change direction of the slash sign.
 # Have to specify file type (in this case, .csv).
 # csv takes up less space, but does not preserve formatting or formulas
-write.csv(raven.1, file = "", row.names = FALSE) 
+write.csv(raven.1, file = "", row.names = FALSE)
 
 # read in data
 # Copy file path (shift + right click on PC)
@@ -110,11 +110,11 @@ NewData <- read.csv("", header=TRUE) # Assign data frame to an object
 # store the data frame in a new object called R Data (rda file)
 # allows saving multiple data frames and objects in one file
 # allows you to import files directly into R without having to recreate them
-save(raven.1, raven.2, NewData, 
+save(raven.1, raven.2, NewData,
      file = "")
 rm(list = ls())
 load("")
-# save script because contents in the console will be gone in new session 
+# save script because contents in the console will be gone in new session
 
 
 # Use R as calculator
@@ -146,20 +146,20 @@ str(baltimore) # Structure of data.
 #can't perform mathematical operations on character or factor
 #need to convert to numeric before doing mathematical operations
 dim(baltimore) # Dimension of data set, i.e., No. of rows and cols.
-length(baltimore) # Shows the no. of cols. 
+length(baltimore) # Shows the no. of cols.
 # We could use the values these functions return
-head(baltimore) # a snippet 
+head(baltimore) # a snippet
 head(baltimore,3) # First 3 rows for every column in dat2010.
 tail(baltimore,4) # Last 4 rows
 names(baltimore) # Shows all the column names.
 summary(baltimore) # Shows summary statistics. Can use it on single column.
 
 # $column name gives access to single column.
-baltimore$pov_moe  
+baltimore$pov_moe
 
 table(baltimore$fake_region) # Frequency table
 table(baltimore$fake_region)/length(baltimore$area) # Proportion
-table(baltimore$fake_region, baltimore$pop_quantile) # Cross table of... 
+table(baltimore$fake_region, baltimore$pop_quantile) # Cross table of...
 #how many Census tracts belong in each fake region I created
 
 # Basic calculation
@@ -202,12 +202,12 @@ baltimore$newcol <- "this is a new column" # Create a new column with same value
 
 
 #Categorization and tidyverse####
-baltimore$population_cat[baltimore$population >= median(baltimore$population)] <- "high" # Create a new column where... 
+baltimore$population_cat[baltimore$population >= median(baltimore$population)] <- "high" # Create a new column where...
 # all observations with population greater than or equal to median pop. get renamed to "high.
 baltimore$population_cat[baltimore$population < median(baltimore$population)] <- "low"
 
 # recategorizing based on more than one condition
-baltimore$region_cat <- ifelse(baltimore$fake_region == "east" | 
+baltimore$region_cat <- ifelse(baltimore$fake_region == "east" |
                            baltimore$fake_region == "west", "region 1", "region 2")
 
 # We've seen how to do things in base R...
@@ -232,11 +232,11 @@ bmore <- baltimore %>% # %>% means piping, or carry previous object to next step
   mutate(poverty_rate = pop_poverty/total_pop, #creating new variables
          pop_density = total_pop/area,
          region_new = recode(fake_region, # recoding regions to something more descriptive
-                             `east` = "Region1", 
-                             `west` = "Region2", 
-                             `north` = "Region3", 
+                             `east` = "Region1",
+                             `west` = "Region2",
+                             `north` = "Region3",
                              `south` = "Region4"),
-         pop_category = cut(total_pop, 
+         pop_category = cut(total_pop,
                             breaks=c(0, 2062, 2917, 3862, 6612), # recategorizing population by quartile (run summary)
                             labels=c("Q1","Q2","Q3","Q4"))) %>%
   select(-tract_name, -fake_region) %>% # delete certain columns, alternatively, keep certain columns without the - sign
@@ -246,13 +246,13 @@ bmore <- baltimore %>% # %>% means piping, or carry previous object to next step
 # Merge two tables based on common key values
 join1 <- bmore %>% select(tract_fips, total_pop)
 join2 <- bmore %>% select(tract_fips, pop_poverty)
-join1and2 <- join1 %>% 
+join1and2 <- join1 %>%
   left_join(., join2, # the . indicates the table from the previous step, i.e., join1
             by = c("tract_fips" = "tract_fips")) #like vlookup
 
 # in this case, we actually did not need to specify the "by" argument,
 # since the key fields for the join have the same column name.
-# must specify if the fields have different names. 
+# must specify if the fields have different names.
 # may join by several fields
 # some times the two tables might not have the same observations in the key field
 # take a look at the different types of joins to see which observations are kept
@@ -260,7 +260,7 @@ join1and2 <- join1 %>%
 # https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf
 
 # Aggregate/summarize by category (i.e., average age by gender)
-agg <- baltimore %>% 
+agg <- baltimore %>%
   group_by(fake_region) %>% # could be multiple fields
   summarise(ave_pop = mean(population), # average population by region
             number_tracts = n(), # number of observations in each region
@@ -278,15 +278,15 @@ hist(dat2010$pop) # Simple bar chart shows distribution
 # Add some labels and color. col can be HEX code (e.g. #FFA500).
 # breaks specifies number of bars.
 hist(dat2010$pop,
-     main="2010 Population", xlab="Population 2010", 
-     ylab="Frequency", col="#FFA500", breaks = 20) 
+     main="2010 Population", xlab="Population 2010",
+     ylab="Frequency", col="#FFA500", breaks = 20)
 
 #set canvas layout
 par(mfrow=c(1,2)) # (rows, columns)
 
 # Density curve
 plot(density(dat2010$pop, na.rm = TRUE),
-     main="2010 Population", xlab="Population 2010", 
+     main="2010 Population", xlab="Population 2010",
      ylab="Density",col="blue")
 
 hist(dat2010$pop[dat2010$percent_poverty > 0.3]) # Plot a subset of data
@@ -294,16 +294,16 @@ hist(dat2010$pop[dat2010$percent_poverty > 0.3]) # Plot a subset of data
 
 par(mfrow=c(1,1))
 
-# Two boxplots side by side; 
-boxplot(dat2010$pop, dat2000$pop, 
-        names = c("pop 2010","pop 2000"), 
-        main="Pop. Comparison", 
-        col = c("blue", "orange")) 
+# Two boxplots side by side;
+boxplot(dat2010$pop, dat2000$pop,
+        names = c("pop 2010","pop 2000"),
+        main="Pop. Comparison",
+        col = c("blue", "orange"))
 
 # Scatter plot
 # pop_plus10 in dat2000 is pop 2010.
 plot(dat2000$pop, dat2000$pop_plus10) #some large tracts in 2000 do not have population in 2010 due to boundaries re-draw
-plot(dat2000$pop, dat2000$pop_plus10, 
+plot(dat2000$pop, dat2000$pop_plus10,
      xlim = c(0, 8000), # xlim contains min. and max. of x axis
      ylim = c(0, 10000), # y axis limits
      pch = 3, # pch specifies symbol (25 types). You may also define your own symbol using ""
@@ -323,7 +323,7 @@ ggplot(dat2010, aes(x=pop)) + # This is the crust. Define variables in the aes f
                  binwidth = 200) + #change bin, or bar, width
   labs(x="population", y="counts") + # This changes labels for x- and y- axis
   ggtitle("Population 2010") # This changes the title
-# When specifying colors, you may use the name or 
+# When specifying colors, you may use the name or
 # the Hex Color Code such as "#FFFFFF".
 # Miranda and Ziyi showed us some websites you can use to get HEX codes for colors
 # Google is your friend
@@ -332,15 +332,15 @@ ggplot(dat2010, aes(x=pop)) + # This is the crust. Define variables in the aes f
 dat2010 %>% mutate(perc.white = pop_white_nonhispanic/pop,
                    majority = cut(perc.white,
                                   breaks = c(0, 0.5, 1),
-                                  labels = c("nonwhite", "white"))) %>% 
+                                  labels = c("nonwhite", "white"))) %>%
   filter(majority == "white") %>%  # until here the code splits the data by perc. white and takes subset of majority white tracts
   ggplot(aes(x=pop)) +
-  geom_histogram(col="black", fill="white",alpha = .5, binwidth = 200) +  
-  labs(x="population", y="counts") + 
+  geom_histogram(col="black", fill="white",alpha = .5, binwidth = 200) +
+  labs(x="population", y="counts") +
   ggtitle("Population 2010")
 
 # Scatter plot using ggplot
-dat2000 %>% 
+dat2000 %>%
   mutate(perc.white = pop_white_nonhispanic/pop,
          majority = cut(perc.white,
                         breaks = c(0, 0.5, 1),
@@ -361,8 +361,8 @@ dat2010 %>% mutate(perc.white = pop_white_nonhispanic/pop,
                                   breaks = c(0, 0.5, 1),
                                   labels = c("nonwhite", "white"))) %>%
   drop_na(majority) %>%
-  ggplot(., aes(x=majority, y=median_hh_income, 
+  ggplot(., aes(x=majority, y=median_hh_income,
                 fill = majority)) + #different color for each category.
-  geom_boxplot(alpha = 0.7) + 
-  labs(x="Race", y="Median HH Income") + 
+  geom_boxplot(alpha = 0.7) +
+  labs(x="Race", y="Median HH Income") +
   scale_fill_manual(values=c("#336699", "#666666")) # manually coloring plots.

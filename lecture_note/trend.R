@@ -47,6 +47,6 @@ ggplot(pop, aes(x = Year, y = Libreville)) +
 
 #Lag model ######
 # y= b0 + b1* pop 5 years + b2*year
-#COEF for pop 5 years ago, on average, each additional unit in the 
-#population 5years prior to the predicted year corresponds to 0.67 units 
+#COEF for pop 5 years ago, on average, each additional unit in the
+#population 5years prior to the predicted year corresponds to 0.67 units
 #in the predicted year.
